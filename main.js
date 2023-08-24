@@ -8,51 +8,46 @@ submitBtn.addEventListener('click', function(){
 });
 
 class messageBoard {  
-  constructor(currentBoard, message, poster){
+  constructor(currentBoard, message, user){
     this.currentMessageBoard = currentBoard;
     this.message = message;
-    this.poster = poster;
-  }
- 
-  getCurrentBoard() {
-    return currentMessageBoard;
-  }
-  setCurrentBoard(board) {
-    this.board = board;
+    this.user = user;
   }
 
   addPost() {
 
     var currentMessageBoard = document.getElementsByClassName('posts')[0];
-    var poster = document.getElementById('name').value;
+    var user = document.getElementById('name').value;
     var message = document.getElementById('message').value;
     
     console.log("cMB: " + currentMessageBoard);
-    console.log("poster: " + poster);
+    console.log("user: " + user);
     console.log("message: " + message);
 
     switch(true){
-      case poster:
+      case (user === ""):
         alert("Name input cannot be blank. Please enter a name.");
-      case message:
+        break;
+      case (message === ""):
         alert("Message cannot be blank.  Please enter a message to post.");
+        break;
       default:
         var divPanel = document.createElement('div');
         var divBody = document.createElement('div');
+        var divBodyTextNode = document.createTextNode(message)
         var divFooter = document.createElement('div');
+        var divFooterTextNode = document.createTextNode("Posted By: " + user);
+      
         divPanel.className = "panel panel-default";
         divBody.className = "panel-body";
         divFooter.className = "panel-footer";
+        divBody.append(divBodyTextNode);
+        divFooter.append(divFooterTextNode);
+
         divPanel.appendChild(divBody);
         divPanel.appendChild(divFooter);
 
-        divBody.innerHTML = message;
-        divFooter.innerHTML = "Posted By: " + poster;
-
-        
-
-        currentMessageBoard.append(divPanel);
-        
+        currentMessageBoard.append(divPanel);  
     }
   }
 
